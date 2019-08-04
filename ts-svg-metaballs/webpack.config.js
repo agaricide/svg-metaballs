@@ -50,7 +50,11 @@ module.exports = {
       }
     ]
   },
-  plugins: [new HtmlWebpackPlugin({ title: "Let's get hacking!" })],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: `${SRC}/index.html`
+    })
+  ],
   devtool: "cheap-module-source-map",
   devServer: {
     host: "localhost",

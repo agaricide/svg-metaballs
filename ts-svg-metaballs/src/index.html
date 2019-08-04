@@ -1,0 +1,28 @@
+<!-- Ported from Hiroyuki Sato's original Metaball script -->
+<!-- http://park12.wakwak.com/~shp/lc/et/en_aics_script.html -->
+<!-- Copied from a paper.js example -->
+<!-- http://paperjs.org/examples/meta-balls/ -->
+<!-- Taught by Varun Vachhar's Metaballs blog post -->
+<!-- https://varun.ca/metaballs/ -->
+<!-- Studied by agaricide-->
+
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<html>
+  <head></head>
+  <body>
+    <main class="overflow-hidden vh-100 flex items-stretch overflow-hidden">
+      <svg
+        id="js-svg"
+        class="w-100 h-100"
+        viewBox="0 0 1200 1200"
+      >
+        <g id="js-g" stroke-width="6" fill="#fff" stroke="#333">
+          <circle id="js-circle1" cx="400" cy="600" r="96" />
+          <circle id="js-circle2" cx="400" cy="600" r="64" stroke="none" />
+          <path id="js-connector" d="" />
+        </g>
+      </svg>
+    </main>
+  </body>
+</html>

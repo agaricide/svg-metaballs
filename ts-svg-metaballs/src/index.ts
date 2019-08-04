@@ -1,19 +1,63 @@
-// Dom Nodes
+import "./index.css";
 
-const circle1 = document.querySelector("#js-circle1");
-const circle2 = document.querySelector("#js-circle2");
-const connector = document.querySelector("#js-connector");
+// Dom Nodes
+const svg = <SVGSVGElement>document.querySelector("#js-svg");
+const g = <SVGGElement>document.querySelector("#js-g");
+const circle1 = <SVGCircleElement>document.querySelector("#js-circle1");
+const circle2 = <SVGCircleElement>document.querySelector("#js-circle2");
+const connector = <SVGPathElement>document.querySelector("#js-connector");
 const VIEWBOX_SIZE = { W: 1200, H: 1200 };
 const SIZES = {
   CIRCLE1: 96,
   CIRCLE2: 64
 };
 
+svg.addEventListener(
+  "mousemove",
+  function(e) {
+    var x = e.clientX,
+      y = e.clientY,
+      svgL = svgPoint(g, x, y);
+
+    // // output co-ordinates
+    // console.log(
+    //   "[page: " +
+    //     x +
+    //     "," +
+    //     y +
+    //     "] => [svg space: " +
+    //     Math.round(0) +
+    //     "," +
+    //     Math.round(0) +
+    //     "] [local transformed space: " +
+    //     Math.round(svgL.x) +
+    //     "," +
+    //     Math.round(svgL.y) +
+    //     "]"
+    // );
+
+    circle2.setAttribute("cx", svgL.x.toString());
+    circle2.setAttribute("cy", svgL.y.toString());
+
+    const circle1Pos = [400, 600];
+    const circle2Pos = [svgL.x, svgL.y];
+    connector.setAttribute("d", metaball(96, 64, circle1Pos, circle2Pos));
+  },
+  false
+);
+
+function svgPoint(element: SVGGElement, x: number, y: number) {
+  var pt = svg.createSVGPoint();
+  pt.x = x;
+  pt.y = y;
+  return pt.matrixTransform((<DOMMatrix>element.getScreenCTM()).inverse());
+}
+
 function metaball(
   radius1: number,
   radius2: number,
-  center1: [number, number],
-  center2: [number, number],
+  center1: number[],
+  center2: number[],
   handleSize = 2.4,
   v = 0.5
 ) {
@@ -113,11 +157,7 @@ function metaballToPath(
 
 /**
  * Utils
- */
-function moveTo([x, y] = [0, 0], element: HTMLElement) {
-  element.setAttribute("cx", x.toString());
-  element.setAttribute("cy", y.toString());
-}
+//  */
 
 function line([x1, y1] = [0, 0], [x2, y2] = [0, 0], element: HTMLElement) {
   element.setAttribute("x1", x1.toString());

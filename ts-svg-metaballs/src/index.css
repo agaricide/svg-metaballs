@@ -1,3 +1,8 @@
 svg {
     border: 8px solid black;
 }
+
+svg * {
+    fill: #64DD17;
+    stroke: #64DD17;
+}

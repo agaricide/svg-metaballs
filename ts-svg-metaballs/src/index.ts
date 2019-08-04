@@ -20,21 +20,7 @@ svg.addEventListener(
       svgL = svgPoint(g, x, y);
 
     // // output co-ordinates
-    // console.log(
-    //   "[page: " +
-    //     x +
-    //     "," +
-    //     y +
-    //     "] => [svg space: " +
-    //     Math.round(0) +
-    //     "," +
-    //     Math.round(0) +
-    //     "] [local transformed space: " +
-    //     Math.round(svgL.x) +
-    //     "," +
-    //     Math.round(svgL.y) +
-    //     "]"
-    // );
+    console.log(`page: [${x},${y}] => svg local space: [${svgL.x},${svgL.y}]`);
 
     circle2.setAttribute("cx", svgL.x.toString());
     circle2.setAttribute("cy", svgL.y.toString());
@@ -46,8 +32,8 @@ svg.addEventListener(
   false
 );
 
+var pt = svg.createSVGPoint();
 function svgPoint(element: SVGGElement, x: number, y: number) {
-  var pt = svg.createSVGPoint();
   pt.x = x;
   pt.y = y;
   return pt.matrixTransform((<DOMMatrix>element.getScreenCTM()).inverse());

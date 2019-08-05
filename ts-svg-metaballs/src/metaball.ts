@@ -4,8 +4,8 @@ const HALF_PI = Math.PI / 2;
 function makeMetaballGoo(
   r1: number,
   r2: number,
-  center1: number[],
-  center2: number[],
+  center1: [number, number],
+  center2: [number, number],
   handleSize = 2.4,
   v = 0.5
 ) {
@@ -59,8 +59,8 @@ function makeMetaballGoo(
 }
 
 function toGooPath(
-  points: number[][],
-  handles: number[][],
+  points: [number, number][],
+  handles: [number, number][],
   escaped: boolean,
   r: number
 ) {

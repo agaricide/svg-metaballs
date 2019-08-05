@@ -1,9 +1,13 @@
 svg * {
-    fill: #64DD17;
-    stroke: #64DD17;
+    fill: #76FF03;
+    stroke: #76FF03;
 }
 
-#goo {
+g {
+    filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .12));
+}
+
+/* #goo {
     fill: red;
     stroke: red;
-}
+} */

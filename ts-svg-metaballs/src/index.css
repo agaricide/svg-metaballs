@@ -2,3 +2,8 @@ svg * {
     fill: #64DD17;
     stroke: #64DD17;
 }
+
+#goo {
+    fill: red;
+    stroke: red;
+}

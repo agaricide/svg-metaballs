@@ -37,13 +37,12 @@ function makeMetaballGoo(
   const p2 = getVector(center1, angle2, r1);
   const p3 = getVector(center2, angle3, r2);
   const p4 = getVector(center2, angle4, r2);
+  const points = [p1, p2, p3, p4];
 
-  // Define handle length by the
-  // distance between both ends of the curve
+  // Handle length = the distance between both ends of the curve
   const totalRadius = r1 + r2;
-  const d2Base = Math.min(v * handleSize, dist(p1, p3) / totalRadius);
-
   // Take into account when balls are overlapping
+  const d2Base = Math.min(v * handleSize, dist(p1, p3) / totalRadius);
   const d2 = d2Base * Math.min(1, (d * 2) / (r1 + r2));
 
   // Handle length
@@ -54,15 +53,16 @@ function makeMetaballGoo(
   const h2 = getVector(p2, angle2 + HALF_PI, hl1);
   const h3 = getVector(p3, angle3 + HALF_PI, hl2);
   const h4 = getVector(p4, angle4 - HALF_PI, hl2);
+  const handles = [h1, h2, h3, h4];
 
-  return toGooPath([p1, p2, p3, p4], [h1, h2, h3, h4], d > r1, r2);
+  return toGooPath(points, handles, d > r1, r2);
 }
 
 function toGooPath(
   points: number[][],
   handles: number[][],
-  escaped: any,
-  r: any
+  escaped: boolean,
+  r: number
 ) {
   const [p1, p2, p3, p4] = points;
   const [h1, h2, h3, h4] = handles;

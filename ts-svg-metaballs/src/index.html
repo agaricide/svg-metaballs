@@ -10,19 +10,20 @@
 <meta charset="utf-8" />
 <html>
   <head>
+    <title>SVG Metaballs</title>
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
   </head>
   <body>
     <main class="overflow-hidden h-100 flex items-stretch overflow-hidden">
       <svg
-        id="js-svg"
+        id="svg"
         class="w-100 h-100"
         viewBox="0 0 1200 1200"
       >
-        <g id="js-g" stroke-width="6" fill="#fff" stroke="#333">
-          <circle id="js-circle1" cx="400" cy="600" r="96" />
-          <circle id="js-circle2" cx="400" cy="600" r="64" stroke="none" />
-          <path id="js-connector" d="" />
+        <g stroke-width="6" fill="#fff" stroke="#333">
+          <circle id="ball1" cx="400" cy="600" r="96" />
+          <circle id="ball2" cx="400" cy="600" r="64" stroke="none" />
+          <path id="goo" d="" />
         </g>
       </svg>
     </main>

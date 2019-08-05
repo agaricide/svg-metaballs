@@ -43,7 +43,7 @@ function makeMetaballGoo(
   const totalRadius = r1 + r2;
   const d2Base = Math.min(v * handleSize, dist(p1, p3) / totalRadius);
 
-  // Take into account when circles are overlapping
+  // Take into account when balls are overlapping
   const d2 = d2Base * Math.min(1, (d * 2) / (r1 + r2));
 
   // Handle length

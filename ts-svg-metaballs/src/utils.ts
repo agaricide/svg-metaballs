@@ -4,7 +4,7 @@
  * @param el the svg object we are translating (fixes bugs caused by e.g. transform="scale(2)")
  * @see https://www.sitepoint.com/how-to-translate-from-dom-to-svg-coordinates-and-back-again/
  */
-const toSVGCoords = (svg: SVGSVGElement, el: SVGGElement, ev: MouseEvent) => {
+const toSVGCoords = (ev: MouseEvent, svg: SVGSVGElement, el: SVGGElement) => {
   // Use parent container to create a point for calculating
   const point = svg.createSVGPoint();
   point.x = ev.clientX;

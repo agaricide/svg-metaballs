@@ -1,5 +1,5 @@
 import "./index.css";
-import { toSVGCoords } from "./utils";
+import { toSVGCoord } from "./utils/dom";
 import makeGoo from "./metaball";
 
 const SIZES = [96, 64];
@@ -10,7 +10,7 @@ const ball2 = <SVGCircleElement>document.querySelector("#ball2");
 const goo = <SVGPathElement>document.querySelector("#goo");
 
 svg.addEventListener("mousemove", (ev: MouseEvent) => {
-  const [x, y] = toSVGCoords(ev, svg, ball2);
+  const [x, y] = toSVGCoord(ev, svg, ball2);
   const b1xy: [number, number] = [400, 600];
   const b2xy: [number, number] = [x, y];
   ball2.setAttribute("cx", x.toString());

@@ -1,6 +1,15 @@
-import { dist, getVector, angle } from "./utils";
+import { getDist, getVector, getDiffAngle } from "./utils/math";
 const HALF_PI = Math.PI / 2;
 
+/**
+ * @param r1 radius 1
+ * @param r2 radius 1
+ * @param center1 circle center 1
+ * @param center2 circle center 2
+ * @param handleSize angle severity coefficient
+ * @param v spread coefficient
+ * @see https://varun.ca/metaballs/
+ */
 function makeMetaballGoo(
   r1: number,
   r2: number,
@@ -9,30 +18,50 @@ function makeMetaballGoo(
   handleSize = 2.4,
   v = 0.5
 ) {
-  const d = dist(center1, center2);
+  const d = getDist(center1, center2);
   const maxDist = r1 + r2 * 2.5;
   let u1 = 0;
   let u2 = 0;
 
-  if (r1 <= 0 || r2 <= 0 || d > maxDist || d <= Math.abs(r1 - r2)) {
+  if (r1 <= 0 || r2 <= 0) {
     return "";
   }
 
+  // If circles are within distance
+  if (d > maxDist) {
+    return "";
+  }
+
+  // If one circle is not within the bounds of the other
+  if (d <= Math.abs(r1 - r2)) {
+    return "";
+  }
+
+  // If circles are touching
   if (d < r1 + r2) {
+    // Expands spread as circles get closer
+    // Hiroyuki Sato magic
     u1 = Math.acos((r1 * r1 + d * d - r2 * r2) / (2 * r1 * d));
     u2 = Math.acos((r2 * r2 + d * d - r1 * r1) / (2 * r2 * d));
   }
 
-  const angleBetweenCenters = angle(center2, center1);
+  // Angle between the vector connecting center1 & center2 and x-axis
+  // Used as a correcting offset for our radian-based calculations
+  const angleOffset = getDiffAngle(center2, center1);
+
+  // Max angle of spread is used to find the tangents we use to make the trapazoid
+  // @see https://varun.ca/metaballs/#building-the-metaball
+  // @see http://www.mathopenref.com/consttangentsext.html
   const maxSpread = Math.acos((r1 - r2) / d);
 
-  const angle1 = angleBetweenCenters + u1 + (maxSpread - u1) * v;
-  const angle2 = angleBetweenCenters - u1 - (maxSpread - u1) * v;
-  const angle3 =
-    angleBetweenCenters + Math.PI - u2 - (Math.PI - u2 - maxSpread) * v;
-  const angle4 =
-    angleBetweenCenters - Math.PI + u2 + (Math.PI - u2 - maxSpread) * v;
+  // Find the angles for trapazoid via unit cirlce math and Sato offsets
+  // Angles are measured clockwise
+  const angle1 = angleOffset + u1 + (maxSpread - u1) * v;
+  const angle2 = angleOffset - u1 - (maxSpread - u1) * v;
+  const angle3 = angleOffset + Math.PI - u2 - (Math.PI - u2 - maxSpread) * v;
+  const angle4 = angleOffset - Math.PI + u2 + (Math.PI - u2 - maxSpread) * v;
 
+  // Convert angles to cartesian points of trapazoid corners
   const p1 = getVector(center1, angle1, r1);
   const p2 = getVector(center1, angle2, r1);
   const p3 = getVector(center2, angle3, r2);
@@ -42,7 +71,7 @@ function makeMetaballGoo(
   // Handle length = the distance between both ends of the curve
   const totalRadius = r1 + r2;
   // Take into account when balls are overlapping
-  const d2Base = Math.min(v * handleSize, dist(p1, p3) / totalRadius);
+  const d2Base = Math.min(v * handleSize, getDist(p1, p3) / totalRadius);
   const d2 = d2Base * Math.min(1, (d * 2) / (r1 + r2));
 
   // Handle length

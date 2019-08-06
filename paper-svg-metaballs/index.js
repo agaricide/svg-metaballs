@@ -68,7 +68,7 @@ function metaball(ball1, ball2, v, handle_len_rate, maxDistance, debug) {
   var d = center1.getDistance(center2);
   var u1, u2;
 
-  // Don't draw metaball if ciecles are undefined
+  // Don't draw metaball if circles are undefined
   if (radius1 == 0 || radius2 == 0) return;
 
   // Don't draw metaball if circles are too distanct

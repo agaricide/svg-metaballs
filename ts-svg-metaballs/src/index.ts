@@ -1,19 +1,20 @@
 import "./index.css";
 import { toSVGCoord } from "./utils/dom";
+import { Point } from "./types/Point";
 import makeGoo from "./metaball";
 
 const SIZES = [96, 64];
 
 const svg = <SVGSVGElement>document.querySelector("#svg");
-const ball1 = <SVGCircleElement>document.querySelector("#ball1");
-const ball2 = <SVGCircleElement>document.querySelector("#ball2");
+const circle1 = <SVGCircleElement>document.querySelector("#circle1");
+const circle2 = <SVGCircleElement>document.querySelector("#circle2");
 const goo = <SVGPathElement>document.querySelector("#goo");
 
 svg.addEventListener("mousemove", (ev: MouseEvent) => {
-  const [x, y] = toSVGCoord(ev, svg, ball2);
-  const b1xy: [number, number] = [400, 600];
-  const b2xy: [number, number] = [x, y];
-  ball2.setAttribute("cx", x.toString());
-  ball2.setAttribute("cy", y.toString());
-  goo.setAttribute("d", makeGoo(SIZES[0], SIZES[1], b1xy, b2xy));
+  const [x, y] = toSVGCoord(ev, svg, circle2);
+  const c1xy: Point = [400, 600];
+  const c2xy: Point = [x, y];
+  circle2.setAttribute("cx", x.toString());
+  circle2.setAttribute("cy", y.toString());
+  goo.setAttribute("d", makeGoo(SIZES[0], SIZES[1], c1xy, c2xy));
 });

@@ -12,9 +12,15 @@ const getDist = ([x1, y1]: Point, [x2, y2]: Point) =>
 const getDiffAngle = ([x1, y1]: Point, [x2, y2]: Point) =>
   Math.atan2(y1 - y2, x1 - x2);
 
-const getVector = ([x, y]: Point, a: number, r: number): Point => [
-  x + r * Math.cos(a),
-  y + r * Math.sin(a)
+/**
+ * Turn a starting point, an angle, and a distance into a 2D Vector (aka a point)
+ * @param point a starting point
+ * @param a an angle in radians
+ * @param d a distance along the ray from the starting point
+ */
+const getVector = ([x, y]: Point, a: number, d: number): Point => [
+  x + d * Math.cos(a),
+  y + d * Math.sin(a)
 ];
 
 export { getDist, getDiffAngle, getVector };

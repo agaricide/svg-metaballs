@@ -14,8 +14,8 @@ const R2 = 75;
 const App: React.FC = () => {
   const [mouseCoord, setMouseCoord] = useState(STARTING_POINT);
   const [isMouseDown, setMouseDown] = useState(false);
-  const gEl = useRef<SVGGElement>(null);
   const svgEl = useRef<SVGSVGElement>(null);
+  const gEl = useRef<SVGGElement>(null);
 
   const handleMouseMove = (event: React.MouseEvent) => {
     if (!svgEl.current || !gEl.current || !isMouseDown) return;

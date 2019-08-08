@@ -6,4 +6,27 @@ svg * {
 g {
   filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.12));
   stroke-width: 6;
+  cursor: grab;
+}
+
+g.grabbing {
+  cursor: grabbing;
+}
+
+a {
+  position: absolute;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+a.grabbing {
+  z-index: -1;
+}
+
+img {
+  width: 68px;
+  padding-right: 8px;
 }

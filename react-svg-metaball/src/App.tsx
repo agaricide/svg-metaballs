@@ -6,45 +6,34 @@ import { Spring, config } from "react-spring/renderprops";
 
 import "./App.css";
 
-const CIRCLE_1: Point = [400, 600];
-const R1 = 80;
-const R2 = 100;
+const STARTING_POINT: Point = [600, 350];
+const R1 = 90;
+const R2 = 70;
 
 const App: React.FC = () => {
-  const [circleCoord, setCircleCoord] = useState([0, 0]);
+  const [mouseCoord, setMouseCoord] = useState(STARTING_POINT);
   const gEl = useRef<SVGGElement>(null);
   const svgEl = useRef<SVGSVGElement>(null);
 
   const handleMouseMove = (event: React.MouseEvent) => {
     if (!svgEl.current || !gEl.current) return;
-    setCircleCoord(toSVGCoord(event, svgEl.current, gEl.current));
+    setMouseCoord(toSVGCoord(event, svgEl.current, gEl.current));
   };
 
-  const [x, y] = circleCoord;
+  const [x, y] = mouseCoord;
 
   return (
-    <svg
-      id="svg"
-      className="w-100 h-100"
-      viewBox="0 0 1200 1200"
-      ref={svgEl}
-      onMouseMove={handleMouseMove}
-    >
+    <svg viewBox="0 0 1200 1200" ref={svgEl} onMouseMove={handleMouseMove}>
       <Spring
         config={config.molasses}
-        from={{ coords: [400, 600] }}
-        to={{ coords: [x, y] }}
+        from={{ coord: STARTING_POINT }}
+        to={{ coord: [x, y] }}
       >
-        {(props: any) => (
-          <g ref={gEl} strokeWidth="6" fill="#fff" stroke="#333">
-            <circle
-              id="circle1"
-              cx={props.coords[0]}
-              cy={props.coords[1]}
-              r={R1}
-            />
-            <circle id="circle2" cx={x} cy={y} r={R2} stroke="none" />
-            <path id="goo" d={makeGoo(R1, R2, props.coords, [x, y])} />
+        {(animate: any) => (
+          <g ref={gEl}>
+            <circle cx={x} cy={y} r={R1} />
+            <circle cx={animate.coord[0]} cy={animate.coord[1]} r={R2} />
+            <path d={makeGoo(R1, R2, [x, y], animate.coord)} />
           </g>
         )}
       </Spring>

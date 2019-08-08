@@ -1,4 +1,4 @@
-import { getDist, getVector, getDiffAngle } from "./utils/math";
+import { getDist, getVector, getDiffVectorAngle } from "./utils/math";
 const HALF_PI = Math.PI / 2;
 
 /**
@@ -47,7 +47,7 @@ function makeMetaballGoo(
 
   // Angle between the vector connecting center1 & center2 and x-axis
   // Used as a correcting offset for our radian-based calculations
-  const angleOffset = getDiffAngle(center2, center1);
+  const angleOffset = getDiffVectorAngle(center2, center1);
 
   // Max angle of spread is used to find the tangents we use to make the trapazoid
   // @see https://varun.ca/metaballs/#building-the-metaball

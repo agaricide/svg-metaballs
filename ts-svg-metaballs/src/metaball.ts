@@ -7,7 +7,7 @@ const HALF_PI = Math.PI / 2;
  * @param handles handle points
  * @param escaped
  * @param r radius of goo'ed circle
- * @returns a "d" attribute path string
+ * @returns a svg "d" attribute path string
  */
 const toGooPath = (
   [p1, p2, p3, p4]: Point[],
@@ -44,7 +44,7 @@ const toGooPath = (
  * @param handleSize angle severity coefficient
  * @param v spread coefficient
  * @see https://varun.ca/metaballs/
- * @returns a "d" attribute path string
+ * @returns a svg "d" attribute path string
  */
 const makeMetaballGoo = (
   r1: number,

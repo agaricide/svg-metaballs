@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/svg-metaballs/static/css/main.8ab8145a.chunk.css",
-    "main.js": "/svg-metaballs/static/js/main.b1ecb50f.chunk.js",
-    "main.js.map": "/svg-metaballs/static/js/main.b1ecb50f.chunk.js.map",
+    "main.css": "/svg-metaballs/static/css/main.d88e46b4.chunk.css",
+    "main.js": "/svg-metaballs/static/js/main.75353c24.chunk.js",
+    "main.js.map": "/svg-metaballs/static/js/main.75353c24.chunk.js.map",
     "runtime~main.js": "/svg-metaballs/static/js/runtime~main.849eb5ab.js",
     "runtime~main.js.map": "/svg-metaballs/static/js/runtime~main.849eb5ab.js.map",
     "static/js/2.84e12a19.chunk.js": "/svg-metaballs/static/js/2.84e12a19.chunk.js",
     "static/js/2.84e12a19.chunk.js.map": "/svg-metaballs/static/js/2.84e12a19.chunk.js.map",
     "index.html": "/svg-metaballs/index.html",
-    "precache-manifest.f84ccfa640863c5280e2c232b5a36928.js": "/svg-metaballs/precache-manifest.f84ccfa640863c5280e2c232b5a36928.js",
+    "precache-manifest.5e74e79f0efa6a39246c108ba39f859b.js": "/svg-metaballs/precache-manifest.5e74e79f0efa6a39246c108ba39f859b.js",
     "service-worker.js": "/svg-metaballs/service-worker.js",
-    "static/css/main.8ab8145a.chunk.css.map": "/svg-metaballs/static/css/main.8ab8145a.chunk.css.map"
+    "static/css/main.d88e46b4.chunk.css.map": "/svg-metaballs/static/css/main.d88e46b4.chunk.css.map"
   }
 }

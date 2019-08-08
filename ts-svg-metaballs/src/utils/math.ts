@@ -7,7 +7,7 @@ const getDist = ([x1, y1]: Point, [x2, y2]: Point) =>
   ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5;
 
 /**
- * Get the angle between the difference vector of p1 and p2 and the x-axis in radians
+ * Get the radian angle between the difference vector of p1 and p2 and the x-axis
  */
 const getDiffVectorAngle = ([x1, y1]: Point, [x2, y2]: Point) =>
   Math.atan2(y1 - y2, x1 - x2);

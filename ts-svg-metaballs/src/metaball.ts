@@ -36,6 +36,7 @@ const toGooPath = (
   ].join(" ");
 
 /**
+ * Ported from Hiroyuki Sato's original metaball script
  * @param r1 radius 1
  * @param r2 radius 1
  * @param center1 circle center 1
@@ -113,7 +114,8 @@ const makeMetaballGoo = (
   const hl1 = r1 * d2;
   const hl2 = r2 * d2;
 
-  // Calculate the handles, which protrude 180* from respective point
+  // Calculate handles
+  // Protrude 180* from respective point p with distance hl
   const h1 = getVector(p1, angle1 - HALF_PI, hl1);
   const h2 = getVector(p2, angle2 + HALF_PI, hl1);
   const h3 = getVector(p3, angle3 + HALF_PI, hl2);

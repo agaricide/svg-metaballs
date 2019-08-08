@@ -1,8 +1,8 @@
 import React, { useState, useRef, Fragment } from "react";
+import { Spring, config } from "react-spring/renderprops";
 import { toSVGCoord } from "./metaball/utils/dom";
 import { Point } from "./metaball/types/Point";
 import makeGoo from "./metaball/metaball";
-import { Spring, config } from "react-spring/renderprops";
 import GithubBadge from "./github-badge";
 
 import "./App.css";

@@ -1,5 +1,39 @@
-import { getDist, getVector, getDiffVectorAngle } from "./utils/math";
+import { getDiffVectorAngle, getDist, getVector } from "./utils/math";
+import { Point } from "./types/Point";
 const HALF_PI = Math.PI / 2;
+
+/**
+ * @param points trapazoid points
+ * @param handles handle points
+ * @param escaped
+ * @param r radius of goo'ed circle
+ * @returns a "d" attribute path string
+ */
+const toGooPath = (
+  [p1, p2, p3, p4]: Point[],
+  [h1, h2, h3, h4]: Point[],
+  escaped: boolean,
+  r: number
+) =>
+  [
+    "M",
+    p1,
+    "C",
+    h1,
+    h3,
+    p3,
+    "A",
+    r,
+    r,
+    0,
+    escaped ? 1 : 0,
+    0,
+    p4,
+    "C",
+    h4,
+    h2,
+    p2
+  ].join(" ");
 
 /**
  * @param r1 radius 1
@@ -9,15 +43,16 @@ const HALF_PI = Math.PI / 2;
  * @param handleSize angle severity coefficient
  * @param v spread coefficient
  * @see https://varun.ca/metaballs/
+ * @returns a "d" attribute path string
  */
-function makeMetaballGoo(
+const makeMetaballGoo = (
   r1: number,
   r2: number,
-  center1: [number, number],
-  center2: [number, number],
+  center1: Point,
+  center2: Point,
   handleSize = 2.4,
   v = 0.5
-) {
+) => {
   const d = getDist(center1, center2);
   const maxDist = r1 + r2 * 2.5;
   let u1 = 0;
@@ -78,6 +113,7 @@ function makeMetaballGoo(
   const hl1 = r1 * d2;
   const hl2 = r2 * d2;
 
+  // Calculate the handles, which protrude 180* from respective point
   const h1 = getVector(p1, angle1 - HALF_PI, hl1);
   const h2 = getVector(p2, angle2 + HALF_PI, hl1);
   const h3 = getVector(p3, angle3 + HALF_PI, hl2);
@@ -85,35 +121,6 @@ function makeMetaballGoo(
   const handles = [h1, h2, h3, h4];
 
   return toGooPath(points, handles, d > r1, r2);
-}
-
-function toGooPath(
-  points: [number, number][],
-  handles: [number, number][],
-  escaped: boolean,
-  r: number
-) {
-  const [p1, p2, p3, p4] = points;
-  const [h1, h2, h3, h4] = handles;
-  return [
-    "M",
-    p1,
-    "C",
-    h1,
-    h3,
-    p3,
-    "A",
-    r,
-    r,
-    0,
-    escaped ? 1 : 0,
-    0,
-    p4,
-    "C",
-    h4,
-    h2,
-    p2
-  ].join(" ");
-}
+};
 
 export default makeMetaballGoo;

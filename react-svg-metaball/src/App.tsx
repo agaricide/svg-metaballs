@@ -1,6 +1,6 @@
 import GithubBadge from "./github-badge";
 import makeGoo from "./metaball/metaball";
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useRef, useState, useCallback } from "react";
 import { config, Spring } from "react-spring/renderprops";
 import { Point } from "./metaball/types/Point";
 import { toSVGCoord } from "./metaball/utils/dom";
@@ -16,19 +16,29 @@ const App: React.FC = () => {
   const svgEl = useRef<SVGSVGElement>(null);
   const gEl = useRef<SVGGElement>(null);
 
-  const handleMouseMove = (event: any) => {
-    if (!svgEl.current || !gEl.current || !isMoving) return;
-    const x = event.clientX;
-    const y = event.clientY;
-    setCoord(toSVGCoord([x, y], svgEl.current, gEl.current));
-  };
+  const handleMouseMove = useCallback(
+    (event: React.MouseEvent) => {
+      if (!svgEl.current || !gEl.current || !isMoving) return;
+      const x = event.clientX;
+      const y = event.clientY;
+      setCoord(toSVGCoord([x, y], svgEl.current, gEl.current));
+    },
+    [isMoving]
+  );
 
-  const handleTouchMove = (event:) => {
-    if (!svgEl.current || !gEl.current || !isMoving) return;
-    const x = event.touches[0].pageX;
-    const y = event.touches[0].pageY;
-    setCoord(toSVGCoord([x, y], svgEl.current, gEl.current));
-  };
+  const handleTouchMove = useCallback(
+    (event: React.TouchEvent) => {
+      if (!svgEl.current || !gEl.current || !isMoving) return;
+      const x = event.touches[0].pageX;
+      const y = event.touches[0].pageY;
+      setCoord(toSVGCoord([x, y], svgEl.current, gEl.current));
+    },
+    [isMoving]
+  );
+
+  const handleStartMoving = useCallback(() => setIsMoving(true), [isMoving]);
+
+  const handleStopMoving = useCallback(() => setIsMoving(false), [isMoving]);
 
   const grabbingClassName = isMoving ? "grabbing" : "";
 
@@ -39,11 +49,11 @@ const App: React.FC = () => {
         ref={svgEl}
         viewBox="0 0 1200 1200"
         onTouchMove={handleTouchMove}
-        onTouchStart={() => setIsMoving(true)}
-        onTouchEnd={() => setIsMoving(false)}
+        onTouchStart={handleStartMoving}
+        onTouchEnd={handleStopMoving}
         onMouseMove={handleMouseMove}
-        onMouseDown={() => setIsMoving(true)}
-        onMouseUp={() => setIsMoving(false)}
+        onMouseDown={handleStartMoving}
+        onMouseUp={handleStopMoving}
       >
         <Spring
           config={config.molasses}

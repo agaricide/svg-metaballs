@@ -23,4 +23,20 @@ const toSVGCoord = (
   return [translated.x, translated.y];
 };
 
-export { toSVGCoord };
+const toSVGCoordTouch = (
+  ev: React.TouchEvent,
+  svg: SVGSVGElement,
+  el: SVGGElement
+): Point => {
+  if (!ev || !svg || !el) return [0, 0];
+  // Use parent container to create a point for calculating
+  const point = svg.createSVGPoint();
+  point.x = ev.touches[0].pageX;
+  point.y = ev.touches[0].pageY;
+  // Use target object's matrix so calculations are accurate
+  const elMatrix = (<DOMMatrix>el.getScreenCTM()).inverse();
+  const translated = point.matrixTransform(elMatrix);
+  return [translated.x, translated.y];
+};
+
+export { toSVGCoord, toSVGCoordTouch };

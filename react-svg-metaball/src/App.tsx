@@ -1,10 +1,9 @@
-import React, { useState, useRef, Fragment } from "react";
-import { Spring, config } from "react-spring/renderprops";
-import { toSVGCoord } from "./metaball/utils/dom";
-import { Point } from "./metaball/types/Point";
-import makeGoo from "./metaball/metaball";
 import GithubBadge from "./github-badge";
-
+import makeGoo from "./metaball/metaball";
+import React, { Fragment, useRef, useState } from "react";
+import { config, Spring } from "react-spring/renderprops";
+import { Point } from "./metaball/types/Point";
+import { toSVGCoord, toSVGCoordTouch } from "./metaball/utils/dom";
 import "./App.css";
 
 const STARTING_POINT: Point = [600, 350];
@@ -23,6 +22,12 @@ const App: React.FC = () => {
     setMouseCoord(toSVGCoord(event, svgEl.current, gEl.current));
   };
 
+  const handleTouchMove = (event: any) => {
+    console.log(event);
+    if (!svgEl.current || !gEl.current || !isMouseDown) return;
+    setMouseCoord(toSVGCoordTouch(event, svgEl.current, gEl.current));
+  };
+
   const grabbingClassName = isMouseDown ? "grabbing" : "";
 
   return (
@@ -31,7 +36,7 @@ const App: React.FC = () => {
       <svg
         ref={svgEl}
         viewBox="0 0 1200 1200"
-        onTouchMove={handleMouseMove}
+        onTouchMove={handleTouchMove}
         onTouchStart={() => setMouseDown(true)}
         onTouchEnd={() => setMouseDown(false)}
         onMouseMove={handleMouseMove}

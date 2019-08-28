@@ -17,7 +17,8 @@ const App: React.FC = () => {
   const svgEl = useRef<SVGSVGElement>(null);
   const gEl = useRef<SVGGElement>(null);
 
-  const handleMouseMove = (event: React.MouseEvent) => {
+  const handleMouseMove = (event: any) => {
+    console.log(event);
     if (!svgEl.current || !gEl.current || !isMouseDown) return;
     setMouseCoord(toSVGCoord(event, svgEl.current, gEl.current));
   };
@@ -30,6 +31,9 @@ const App: React.FC = () => {
       <svg
         ref={svgEl}
         viewBox="0 0 1200 1200"
+        onTouchMove={handleMouseMove}
+        onTouchStart={() => setMouseDown(true)}
+        onTouchEnd={() => setMouseDown(false)}
         onMouseMove={handleMouseMove}
         onMouseDown={() => setMouseDown(true)}
         onMouseUp={() => setMouseDown(false)}

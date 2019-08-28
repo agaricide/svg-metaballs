@@ -22,6 +22,7 @@ const App: React.FC = () => {
       const x = event.clientX;
       const y = event.clientY;
       setCoord(toSVGCoord([x, y], svgEl.current, gEl.current));
+      event.preventDefault();
     },
     [isMoving]
   );
@@ -32,6 +33,7 @@ const App: React.FC = () => {
       const x = event.touches[0].pageX;
       const y = event.touches[0].pageY;
       setCoord(toSVGCoord([x, y], svgEl.current, gEl.current));
+      event.preventDefault();
     },
     [isMoving]
   );

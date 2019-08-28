@@ -22,7 +22,6 @@ const App: React.FC = () => {
       const x = event.clientX;
       const y = event.clientY;
       setCoord(toSVGCoord([x, y], svgEl.current, gEl.current));
-      event.preventDefault();
     },
     [isMoving]
   );

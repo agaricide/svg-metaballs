@@ -8,35 +8,19 @@ import { Point } from "../types/Point";
  * @see https://www.sitepoint.com/how-to-translate-from-dom-to-svg-coordinates-and-back-again/
  */
 const toSVGCoord = (
-  ev: React.MouseEvent,
+  [x, y]: Point,
   svg: SVGSVGElement,
   el: SVGGElement
 ): Point => {
-  if (!ev || !svg || !el) return [0, 0];
+  if (!svg || !el) return [0, 0];
   // Use parent container to create a point for calculating
   const point = svg.createSVGPoint();
-  point.x = ev.clientX;
-  point.y = ev.clientY;
+  point.x = x
+  point.y = y;
   // Use target object's matrix so calculations are accurate
   const elMatrix = (<DOMMatrix>el.getScreenCTM()).inverse();
   const translated = point.matrixTransform(elMatrix);
   return [translated.x, translated.y];
 };
 
-const toSVGCoordTouch = (
-  ev: React.TouchEvent,
-  svg: SVGSVGElement,
-  el: SVGGElement
-): Point => {
-  if (!ev || !svg || !el) return [0, 0];
-  // Use parent container to create a point for calculating
-  const point = svg.createSVGPoint();
-  point.x = ev.touches[0].pageX;
-  point.y = ev.touches[0].pageY;
-  // Use target object's matrix so calculations are accurate
-  const elMatrix = (<DOMMatrix>el.getScreenCTM()).inverse();
-  const translated = point.matrixTransform(elMatrix);
-  return [translated.x, translated.y];
-};
-
-export { toSVGCoord, toSVGCoordTouch };
+export { toSVGCoord };

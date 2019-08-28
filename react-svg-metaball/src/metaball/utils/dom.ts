@@ -15,10 +15,10 @@ const toSVGCoord = (
   if (!svg || !el) return [0, 0];
   // Use parent container to create a point for calculating
   const point = svg.createSVGPoint();
-  point.x = x
+  point.x = x;
   point.y = y;
   // Use target object's matrix so calculations are accurate
-  const elMatrix = (<DOMMatrix>el.getScreenCTM()).inverse();
+  const elMatrix = (el.getScreenCTM() as DOMMatrix).inverse();
   const translated = point.matrixTransform(elMatrix);
   return [translated.x, translated.y];
 };

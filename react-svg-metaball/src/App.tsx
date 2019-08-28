@@ -37,9 +37,9 @@ const App: React.FC = () => {
     [isMoving]
   );
 
-  const handleStartMoving = useCallback(() => setIsMoving(true), [isMoving]);
+  const handleStartMoving = useCallback(() => setIsMoving(true), []);
 
-  const handleStopMoving = useCallback(() => setIsMoving(false), [isMoving]);
+  const handleStopMoving = useCallback(() => setIsMoving(false), []);
 
   const grabbingClassName = isMoving ? "grabbing" : "";
 
